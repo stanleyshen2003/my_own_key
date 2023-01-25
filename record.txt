@@ -1,0 +1,4 @@
+add some records in case I forget something
+ - emoji list created in "https://github.com/stanleyshen2003/my_emoji_key/tree/main/emoji_python_modify"
+ - main codes in "https://github.com/stanleyshen2003/my_emoji_key/blob/main/app/src/main/java/com/example/ecrypt_decrypt_stanley/MainActivity.kt"
+ - front-end design in "https://github.com/stanleyshen2003/my_emoji_key/blob/main/app/src/main/res/layout/activity_main.xml"
