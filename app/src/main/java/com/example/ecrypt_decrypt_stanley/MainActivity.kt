@@ -20,38 +20,43 @@ class MainActivity : AppCompatActivity() {
         var check = false
         var nowLetter : Int
         var nextLetter : Int
-        randomInt = 77
+        var secondcheck = false
         encryptedStr += emojiList[randomInt]
         for(i in 0 until text.length){
             if(check){
                 check=false
+                secondcheck = true
                 continue
             }
             nowLetter = 126-text[i].toInt()
-            if(nowLetter >= 5 && nowLetter<=29 && i<text.length-1){
+            if(nowLetter >= 7 && nowLetter<23 && i<text.length-1 && !secondcheck){
                 nextLetter = 126-text[i+1].toInt()
-                if(nextLetter>=5 && nextLetter<=29) {
-                    randomInt+=nowLetter*25+nextLetter
+                if(nextLetter>=7 && nextLetter<23) {
+                    randomInt+=nowLetter*23+nextLetter - 46
                     check=true
                 }
             }
             if(!check){
                 randomInt+=nowLetter
             }
-            if(randomInt>816){
-                randomInt%=816
+            if(randomInt>712){
+                randomInt%=712
             }
+            secondcheck = false
             encryptedStr += emojiList[randomInt]
         }
-        return encryptedStr
+        val firstTwo = encryptedStr.slice(0..1)
+        val secondTwo = encryptedStr.slice(2..3)
+        val resultStr = secondTwo + firstTwo + encryptedStr.slice(4..encryptedStr.lastIndex)
+        return resultStr
     }
 
-    fun binarySearch(list: MutableList<String>, c: Char): Int {
+    fun binarySearch(list: MutableList<String>, c: String): Int {
         var left = 0
         var right = list.size - 1
         while (left <= right) {
             val mid = (left + right) / 2
-            val midChar = list[mid][0]
+            val midChar = list[mid]
             when {
                 c == midChar -> return mid
                 c < midChar -> right = mid - 1
@@ -61,8 +66,31 @@ class MainActivity : AppCompatActivity() {
         return -1
     }
     fun decrypt(text: String,emojiList:MutableList<String>):String{
+        if (text.length==0) return ""
+        var ans=""
+        var first = binarySearch(emojiList,text[2].toString()+text[3].toString())
+        var shift = 0
+        var ascii1 = 0
+        var ascii2 = 0
+        for(i in 0 until text.length/2){
+            if(i==1) continue
+            var tmp = binarySearch(emojiList,text[2*i].toString()+text[2*i+1].toString())
+            shift = (tmp-first+712)%712
+            if(shift>121){
+                ascii1 = (shift+46)/23
+                ascii2 = shift % 23
+                ascii1 = 126-ascii1
+                ascii2 = 126-ascii2
+                ans += ascii1.toChar().toString() + ascii2.toChar().toString()
+            }
+            else{
+                ascii1 = 126-shift
+                ans += ascii1.toChar().toString()
+            }
+            first = (first+shift)%712
 
-        return emojiList.size.toString()
+        }
+        return ans
     }
     fun quickSort(list: MutableList<String>, left: Int, right: Int) {
         if (left < right) {
