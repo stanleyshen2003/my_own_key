@@ -1,8 +1,8 @@
 # Discription
-An Android app that can encrypt words into emojis & decrypt emojis back to words.
+An Android app that can encode words into emojis & decrypt emojis back to words.
 
 # Feature
-- differnt encryption result every time
+- differnt encoding result every time
 - large number of cute emojis 🐙🐰🐸🐧🐏🐉
 - English & symbols allowed
 
